@@ -8,7 +8,7 @@ An n8n workflow where AI agents turn chat messages and feedback-form submissions
 
 ## The problem
 
-I built this for an early-stage AI comics startup (called "AcmeComics" in this repo). Their web app needed a support channel, but nobody on the team had time to read every message, sort it and keep Jira up to date. The messages were a mix of things: bugs for everyone, bugs for one user's account, people who wanted to invest, people who wanted to join the team, plus spam and random questions.
+I built this for an early-stage AI comics startup (called "AcmeComics" in this repo). Its web app needed a support channel where messages of very different kinds arrive: bugs for everyone, bugs for one user's account, people who want to invest, people who want to join the team, plus spam and random questions.
 
 The goal: let users write normally and have the agents do the sorting and the Jira work, without duplicates and without anyone being able to touch someone else's tickets.
 

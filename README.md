@@ -75,6 +75,8 @@ The workflow was exported with an allowlist: I started from an empty copy (nodes
 
 Solo project. I designed the workflow, set up the MCP server and the Jira tools in n8n, and wrote the agent prompts (with some help from AI). It was my first n8n automation. Someone else built the startup's website.
 
+**About this repository:** the workflow is mine. I exported and packaged it for GitHub (this README, screenshots, demo GIF, removing private data) with help from an AI assistant, which is why the single commit lists Claude as co-author.
+
 ## Status and limitations
 
 - **The chat never went live.** It was demoed to the founders but not released to users.

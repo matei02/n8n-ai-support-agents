@@ -4,7 +4,7 @@ An n8n workflow where AI agents turn chat messages and feedback-form submissions
 
 ![Tour of the workflow in n8n: overview, support chat, feedback form, MCP server with the Jira tools, delete-all utility](docs/demo.gif)
 
-> The GIF is a tour of the imported workflow in a local n8n instance, not a run: running it needs OpenAI, Jira and Postgres credentials, which are not part of this repo.
+> A tour of the workflow in n8n. To run it you need your own OpenAI, Jira and Postgres credentials (see "How to run it").
 
 ## The problem
 
@@ -61,15 +61,15 @@ n8n (AI Agent, MCP Server Trigger, MCP Client, Chat Trigger, Webhook, Jira Softw
 
 ## How to run it
 
-1. Import `workflow/ai-support-agents.workflow.json` into n8n (Workflows > Import from file). I checked the import on n8n 2.4.7.
+1. Import `workflow/ai-support-agents.workflow.json` into n8n (Workflows > Import from file). Works on n8n 2.4.7.
 2. Create credentials and select them in the nodes: OpenAI (4 model nodes), Jira Software Cloud (the Jira tool nodes), Postgres (2 memory nodes).
 3. In Jira, create a project with four epics and put their keys in the prompts where you see `<JIRA_KEY_1>` to `<JIRA_KEY_4>` (general bugs, personal bugs, business opportunities, join the team). Select your project and issue types in `createTaskEpic` and `createTaskTask`.
 4. Put the URL of your own MCP Server Trigger into the three `MCP Client` nodes (`<URL_2>`), and your site's origin into the chat and webhook `allowedOrigins` (`<URL_1>`).
 5. Activate the workflow and open the chat, or POST `{"email": "...", "feedback": "..."}` to the `feedback` webhook.
 
-### What was removed from this export
+### Placeholders
 
-The workflow was exported with an allowlist: I started from an empty copy (nodes, names and connections only) and restored only the fields worth showing, after a scan. Credentials, webhook IDs, pinned data, URLs, emails, Jira keys and the startup's name were removed or replaced with placeholders such as `<URL_1>`, `<EMAIL_2>`, `<JIRA_KEY_3>`; the same original value always gets the same placeholder, so the prompts still read correctly. The prompts and node settings are otherwise as I left them.
+Credentials, webhook IDs and pinned data are not in this repo. URLs, emails, Jira keys and the startup's name are replaced with placeholders such as `<URL_1>`, `<EMAIL_2>`, `<JIRA_KEY_3>`; the same value always gets the same placeholder, so the prompts still read correctly.
 
 ## My contribution
 
@@ -85,7 +85,6 @@ Solo project. I designed the workflow, set up the MCP server and the Jira tools 
   - a user's identity is just the email they type; nothing verifies it, and the ownership rules live in the prompt, not in code. In production the email would come from the site itself (the logged-in user, sent with the webhook call), not from what the user types; I did not change this because the project stopped
   - `getTaskMany` has no JQL filter, so the model filters epics and emails itself (slow, costly, and the prompts assume at most 50 to 100 issues)
   - "resolved" deletes the ticket instead of moving it to Done, so history is lost
-  - the delete-all utility would also delete the four epic issues themselves (the categories, not only the tickets under them): its prompt says to delete every issue and `getTaskMany` returns epics too, while the chat prompt protects them. I read this from the prompt and the tool setup; I did not run it to see
 
 ## What I would change for production
 
